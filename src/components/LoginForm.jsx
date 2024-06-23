@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { loginUser } from '../services/api';
+import {loginUser, registerUser} from '../services/api';
 import { saveToken } from '../utils/auth';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +16,17 @@ const LoginForm = ({ setIsAuthenticated }) => {
             setIsAuthenticated(true);
         } catch (err) {
             setError('Invalid credentials');
+        }
+        try {
+            const response = await loginUser(username, password);
+            saveToken(response.data.access_token);
+            setIsAuthenticated(true);
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+            } else {
+                setError('Unknown error: ' + err.message);
+            }
         }
     };
 

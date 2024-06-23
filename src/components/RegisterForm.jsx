@@ -15,13 +15,16 @@ const RegisterForm = ({ setIsAuthenticated }) => {
             const response = await registerUser(username, password, email);
             if (response.status === 201) {
                 setIsAuthenticated(true);
-            } else {
-                setError('Registration failed');
             }
         } catch (err) {
-            setError('Registration failed');
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+            } else {
+                setError('Unknown error: ' + err.message);
+            }
         }
     };
+
 
     return (
         <div>

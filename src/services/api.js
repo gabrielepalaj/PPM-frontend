@@ -23,10 +23,21 @@ apiClient.interceptors.request.use((config) => {
 });
 
 export const loginUser = (username, password) => {
-    return apiClient.post('/login', { username, password });
+    return apiClient.post('login', { username, password });
 };
 
 export const registerUser = (username, password, email) => {
-    return apiClient.post('/register', { username, password, email });
+    return apiClient.post('register', { username, password, email });
 };
 
+export const fetchWebsites = () => {
+    return apiClient.get('/websites');
+};
+
+export const addWebsite = (website) => {
+    return apiClient.post('/websites', website);
+};
+
+export const fetchChanges = () => {
+    return apiClient.get('/changes');
+};
