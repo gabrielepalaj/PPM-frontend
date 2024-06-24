@@ -5,11 +5,20 @@ const WebsiteList = ({ websites }) => {
     return (
         <div>
             <h3>Monitored Websites</h3>
-            <ul>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Interval</th>
+                </tr>
+                </thead>
+                <tbody>
                 {websites.map((website) => (
                     <WebsiteItem key={website.id} website={website} />
                 ))}
-            </ul>
+                </tbody>
+            </table>
         </div>
     );
 };
