@@ -24,6 +24,7 @@ apiClient.interceptors.response.use((response) => {
     return response;
 }, async (error) => {
     const originalRequest = error.config;
+    if (originalRequest.url === `${API_URL}/login` || originalRequest.url === `${API_URL}/register`) {
     if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
@@ -37,7 +38,7 @@ apiClient.interceptors.response.use((response) => {
             removeToken();
             return Promise.reject(refreshError);
         }
-    }
+    }}
     return Promise.reject(error);
 });
 
