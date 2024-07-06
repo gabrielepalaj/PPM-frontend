@@ -1,8 +1,8 @@
-// src/components/RegisterForm.jsx
-
 import React, { useState } from 'react';
 import { registerUser } from '../services/api';
 import {saveToken} from "../utils/auth.js";
+import '../styles.css';
+import {Link} from "react-router-dom";
 
 const RegisterForm = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
@@ -29,23 +29,26 @@ const RegisterForm = ({ setIsAuthenticated }) => {
 
 
     return (
-        <div>
+        <div className="form-container">
             <h2>Register</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
+                    <label>Email:</label>
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                </div>
+                <div>
                     <label>Username:</label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                 </div>
                 <div>
                     <label>Password:</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
                 <button type="submit">Register</button>
+                <p>
+                    Have an account? <Link to="/login">Login</Link>
+                </p>
             </form>
         </div>
     );
