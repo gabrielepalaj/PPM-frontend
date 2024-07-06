@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../services/api';
 import {saveToken} from "../utils/auth.js";
-import '../styles.css';
+import '../FormStyles.css';
 import {Link} from "react-router-dom";
 
 const RegisterForm = ({ setIsAuthenticated }) => {
@@ -31,7 +31,7 @@ const RegisterForm = ({ setIsAuthenticated }) => {
     return (
         <div className="form-container">
             <h2>Register</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p className="form-error">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Email:</label>
