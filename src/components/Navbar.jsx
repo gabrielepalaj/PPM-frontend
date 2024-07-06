@@ -14,7 +14,7 @@ const Navbar = ({ user, handleLogout }) => {
     return (
         <div className="navbar">
             <div className="navbar-left">
-                <a href="/" className="navbar-brand">Home</a>
+                <a href="/dashboard" className="navbar-brand">Home</a>
             </div>
             <div className="navbar-right">
                 <div className="user-info" onClick={toggleDropdown}>
