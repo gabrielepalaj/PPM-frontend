@@ -1,21 +1,29 @@
 import React from 'react';
-import WebsiteItem from './WebsiteItem';
 
 const WebsiteList = ({ websites }) => {
     return (
-        <div>
+        <div className="website-list-container">
             <h3>Monitored Websites</h3>
-            <table>
+            <table className="website-list-table">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>URL</th>
                     <th>Interval</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {websites.map((website) => (
-                    <WebsiteItem key={website.id} website={website} />
+                    <tr key={website.id}>
+                        <td>{website.name}</td>
+                        <td>{website.url}</td>
+                        <td>{website.interval}</td>
+                        <td>
+                            <i className="fas fa-edit action-icons"></i>
+                            <i className="fas fa-trash-alt action-icons"></i>
+                        </td>
+                    </tr>
                 ))}
                 </tbody>
             </table>
