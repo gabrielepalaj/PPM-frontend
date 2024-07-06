@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { registerUser } from '../services/api';
+import {saveToken} from "../utils/auth.js";
 
 const RegisterForm = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
@@ -14,6 +15,7 @@ const RegisterForm = ({ setIsAuthenticated }) => {
         try {
             const response = await registerUser(username, password, email);
             if (response.status === 201) {
+                saveToken(response.data.access_token);
                 setIsAuthenticated(true);
             }
         } catch (err) {
