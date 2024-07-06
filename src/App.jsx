@@ -2,51 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import Dashboard from './components/Dashboard.jsx';
-import { getToken, removeToken, saveToken } from './utils/auth';
-import './App.css';
-import { refreshAccessToken, verifyToken } from './services/api';
+import Dashboard from './components/Dashboard';
+import { getToken, removeToken, saveToken, getUserFromToken } from './utils/auth';
+import './styles/App.css';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
+    const [user, setUser] = useState(getUserFromToken());
     const navigate = useNavigate();
 
-    const checkToken = async () => {
-        try {
-            await verifyToken();
+    useEffect(() => {
+        const currentUser = getUserFromToken();
+        if (currentUser) {
+            setUser(currentUser);
             setIsAuthenticated(true);
-        } catch (error) {
-            console.error("Token verification failed:", error);
-            // Prova a fare il refresh del token
-            try {
-                const response = await refreshAccessToken();
-                saveToken(response.data.access_token);
-                setIsAuthenticated(true);
-            } catch (refreshError) {
-                console.error("Token refresh failed:", refreshError);
-                removeToken();
-                setIsAuthenticated(false);
-            }
-        }
-    };
-
-    useEffect(() => {
-        checkToken();
-    }, []);
-
-    useEffect(() => {
-        if (!isAuthenticated) {
-            if (window.location.pathname !== '/register') {
-                navigate('/login');
-            }
-        }else{
-            navigate('/dashboard');
+            navigate('/dashboard')
+        } else if (window.location.pathname !== '/register'){
+            navigate('/login');
         }
     }, [isAuthenticated, navigate]);
 
     const handleLogout = () => {
         removeToken();
         setIsAuthenticated(false);
+        setUser(null);
         navigate('/login');
     };
 
@@ -54,7 +33,7 @@ const App = () => {
         <Routes>
             <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/register" element={<RegisterForm setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path="/dashboard" element={<Dashboard handleLogout={handleLogout} />} />
+            {user && <Route path="/dashboard" element={<Dashboard user={user} handleLogout={handleLogout} />} />}
             <Route path="*" element={<LoginForm setIsAuthenticated={setIsAuthenticated} />} />
         </Routes>
     );

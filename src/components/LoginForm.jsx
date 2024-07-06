@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {loginUser, registerUser} from '../services/api';
+import {loginUser} from '../services/api';
 import { saveToken } from '../utils/auth';
-import {Link, redirect} from 'react-router-dom';
-import '../FormStyles.css';
+import {Link} from 'react-router-dom';
+import '../styles/FormStyles.css';
+import PropTypes from 'prop-types';
 
 const LoginForm = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
@@ -45,6 +46,11 @@ const LoginForm = ({ setIsAuthenticated }) => {
             </p>
         </div>
     );
+};
+
+
+LoginForm.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

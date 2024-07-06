@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { registerUser } from '../services/api';
 import {saveToken} from "../utils/auth.js";
-import '../FormStyles.css';
+import '../styles/FormStyles.css';
 import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const RegisterForm = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
@@ -52,6 +53,11 @@ const RegisterForm = ({ setIsAuthenticated }) => {
             </form>
         </div>
     );
+};
+
+
+RegisterForm.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

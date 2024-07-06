@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import WebsiteList from './WebsiteList';
-import AddWebsiteForm from './AddWebsiteForm';
 import { fetchWebsites } from '../services/api';
-import '../Dashboard.css';
+import '../styles/Dashboard.css';
 import AddWebsiteModal from './AddWebsiteModal';
+import Navbar from './Navbar';
 
-const Dashboard = ({ handleLogout }) => {
+const Dashboard = ({ user, handleLogout }) => {
     const [websites, setWebsites] = useState([]);
     const [modalShow, setModalShow] = useState(false);
-
 
     const getWebsites = async () => {
         try {
             const response = await fetchWebsites();
-            console.log('Received websites:', response.data);
             setWebsites(response.data);
         } catch (err) {
             console.error(err);
@@ -40,17 +38,20 @@ const Dashboard = ({ handleLogout }) => {
     };
 
     return (
-        <div className="dashboard-container">
-            <h2>Dashboard</h2>
-            <button onClick={() => setModalShow(true)}>Aggiungi Sito Web</button>
-            <AddWebsiteModal show={modalShow} onHide={() => setModalShow(false)} onSave={handleSaveWebsite}/>
-            <div className="table-container">
-            <h3>Filtri</h3>
-                {/* Inserisci qui la tabella dei filtri */}
-            </div>
-            <div className="table-container">
-                <h3>Siti Web Monitorati</h3>
-                <WebsiteList websites={websites} />
+        <div>
+            <Navbar user={user} handleLogout={handleLogout} />
+            <div className="dashboard-container">
+                <h2>Dashboard</h2>
+                <button onClick={() => setModalShow(true)}>Aggiungi Sito Web</button>
+                <AddWebsiteModal show={modalShow} onHide={() => setModalShow(false)} onSave={handleSaveWebsite} />
+                <div className="table-container">
+                    <h3>Filtri</h3>
+                    {/* Inserisci qui la tabella dei filtri */}
+                </div>
+                <div className="table-container">
+                    <h3>Siti Web Monitorati</h3>
+                    <WebsiteList websites={websites} />
+                </div>
             </div>
         </div>
     );
@@ -58,6 +59,7 @@ const Dashboard = ({ handleLogout }) => {
 
 Dashboard.propTypes = {
     handleLogout: PropTypes.func.isRequired,
+    user: PropTypes.string.isRequired,
 };
 
 export default Dashboard;

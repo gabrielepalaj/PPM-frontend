@@ -37,19 +37,7 @@ const AddWebsiteForm = ({ setWebsites, getWebsites }) => {
                     <input type="number" value={timeInterval} onChange={(e) => setTimeInterval(e.target.value)}
                            required/>
                 </div>
-                <button type="button" onClick={() => setShowFrame(true)}>Open Website</button>
-                <button type="button" onClick={() => setShowFrame(false)}>Close Website</button>
-                {showFrame && (
-                    <div className="website-preview">
-                        <iframe src={url} width="1000px" height="500px"></iframe>
-                        <Selecto
-                            dragContainer={".website-preview"}
-                            onDragEnd={({rect}) => {
-                                setSelectedArea(rect);
-                            }}
-                        />
-                    </div>
-                )}
+
                 <button type="submit">Add Website</button>
             </form>
         </div>
