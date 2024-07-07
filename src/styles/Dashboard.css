@@ -10,8 +10,8 @@ button {
     margin-bottom: 20px;
 }
 .modal {
-    width: 800px;
-    height: 450px;
+    min-width: 500px;
+    min-height: 250px;
     position: fixed;
     z-index: 1050;
     top: 40%;
@@ -32,4 +32,9 @@ button {
     margin-bottom: 20px;
 }
 
-
+.modal-footer {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
+}

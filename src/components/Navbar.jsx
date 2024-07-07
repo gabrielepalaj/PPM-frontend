@@ -31,7 +31,7 @@ const Navbar = ({ user, handleLogout }) => {
     );
 };
 
-Navbar.PropTypes = {
+Navbar.propTypes = {
     user: PropTypes.string.isRequired,
     handleLogout: PropTypes.func.isRequired
 };
