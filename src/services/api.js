@@ -39,3 +39,11 @@ export const addWebsite = (website) => {
 export const fetchChanges = () => {
     return apiClient.get('/changes');
 };
+
+export const deleteWebsite = (websiteId) => {
+    return apiClient.delete(`/websites/${websiteId}`);
+};
+
+export const editWebsite = (website) => {
+    return apiClient.put(`/websites/${website.id}`, website);
+};

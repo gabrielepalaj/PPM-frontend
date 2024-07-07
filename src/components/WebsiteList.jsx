@@ -1,6 +1,9 @@
 import React from 'react';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
-const WebsiteList = ({ websites }) => {
+const WebsiteList = ({ websites, onEdit, deleteButton }) => {
+
     return (
         <div className="website-list-container">
             <h3>Monitored Websites</h3>
@@ -18,10 +21,10 @@ const WebsiteList = ({ websites }) => {
                     <tr key={website.id}>
                         <td>{website.name}</td>
                         <td>{website.url}</td>
-                        <td>{website.interval}</td>
+                        <td>{website.time_interval} minutes</td>
                         <td>
-                            <i className="fas fa-edit action-icons"></i>
-                            <i className="fas fa-trash-alt action-icons"></i>
+                            <FaEdit className="action-icons" onClick={() => onEdit(website)} />
+                            <FaTrashAlt className="action-icons" onClick={() => deleteButton(website.id)} />
                         </td>
                     </tr>
                 ))}
@@ -29,6 +32,17 @@ const WebsiteList = ({ websites }) => {
             </table>
         </div>
     );
+};
+
+WebsiteList.propTypes = {
+    websites: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        name: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        time_interval: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })).isRequired,
+    onEdit: PropTypes.func.isRequired,
+    deleteButton: PropTypes.func.isRequired,
 };
 
 export default WebsiteList;

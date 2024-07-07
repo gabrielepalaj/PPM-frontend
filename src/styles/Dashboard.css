@@ -38,3 +38,43 @@ button {
     justify-content: flex-end;
     align-items: center;
 }
+
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-column {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.table-container {
+    width: 75%;
+    padding: 20px;
+}
+
+.website-list-container {
+    margin-top: 20px;
+}
+
+.website-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.website-list-table th, .website-list-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.website-list-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.action-icons {
+    cursor: pointer;
+    margin-right: 10px;
+}
