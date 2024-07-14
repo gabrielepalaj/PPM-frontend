@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '../utils/auth';
+import {getToken, removeToken} from '../utils/auth';
 
 const API_URL = 'http://localhost:5000';
 
@@ -8,6 +8,16 @@ const apiClient = axios.create({
     headers: {
         'Content-Type': 'application/json'
     }
+});
+
+apiClient.interceptors.response.use(response => {
+    // Se la richiesta va a buon fine, semplicemente ritorna la risposta
+    return response;
+}, error => {
+    if (error.response && error.response.status === 401) {
+        removeToken();
+    }
+    return Promise.reject(error);
 });
 
 apiClient.interceptors.request.use((config) => {
@@ -46,4 +56,8 @@ export const deleteWebsite = (websiteId) => {
 
 export const editWebsite = (website) => {
     return apiClient.put(`/websites/${website.id}`, website);
+};
+
+export const markChangeAsRead = (changeId) => {
+    return apiClient.put(`/changes/${changeId}/mark_as_read`);
 };

@@ -1,45 +1,5 @@
 .dashboard-container {
     padding: 20px;
-}
-
-.table-container {
-    margin-top: 20px;
-}
-
-button {
-    margin-bottom: 20px;
-}
-.modal {
-    min-width: 500px;
-    min-height: 250px;
-    position: fixed;
-    z-index: 1050;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 50px auto;
-}
-
-.modal-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.modal-footer {
-    display: flex;
-    gap: 5px;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.dashboard-container {
     display: flex;
     flex-direction: row;
 }
@@ -77,4 +37,38 @@ button {
 .action-icons {
     cursor: pointer;
     margin-right: 10px;
+}
+
+button {
+    margin-bottom: 20px;
+}
+
+.modal {
+    min-width: 500px;
+    min-height: 250px;
+    position: fixed;
+    z-index: 1050;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 50px auto;
+}
+
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
 }

@@ -5,6 +5,7 @@ import RegisterForm from './components/RegisterForm';
 import Dashboard from './components/Dashboard';
 import {getToken, getUserFromToken, removeToken} from './utils/auth';
 import './styles/App.css';
+import {ToastContainer} from "react-toastify";
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
     const [user, setUser] = useState(getUserFromToken());

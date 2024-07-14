@@ -69,8 +69,13 @@ const EditWebsiteModal = ({ website, show, onHide, onSave }) => {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>URL</Form.Label>
-                            <Form.Control type="text" placeholder="Inserisci l'URL del sito" value={url}
-                                          onChange={(e) => setUrl(e.target.value)} required/>
+                            <Form.Control type="text"
+                                          placeholder="Inserisci l'URL del sito"
+                                          value={url}
+                                          onChange={(e) => setUrl(e.target.value)}
+                                          required
+                                          disabled
+                            />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Intervallo</Form.Label>
