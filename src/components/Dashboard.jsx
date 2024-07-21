@@ -22,11 +22,10 @@ const Dashboard = ({user, handleLogout}) => {
                 setWebsites(response.data);
             }
         } catch (err) {
-            console.log('Login scaduto!');
-            handleLogout();
             console.error(err);
         }
     };
+
 
     useEffect(() => {
         getWebsites();

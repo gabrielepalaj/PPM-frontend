@@ -6,21 +6,53 @@ import Dashboard from './components/Dashboard';
 import {getToken, getUserFromToken, removeToken} from './utils/auth';
 import './styles/App.css';
 import {ToastContainer} from "react-toastify";
+import {checkServerHealth} from "./services/api.js";
+import NoConnectionModal from "./components/NoConnectionModal.jsx";
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
     const [user, setUser] = useState(getUserFromToken());
+    const [serverStatus, setServerStatus] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const currentUser = getUserFromToken();
-        if (currentUser) {
+        verifyServerStatus();
+        if (!serverStatus){
+            navigate('/no-connection');
+        }else if (currentUser) {
             setUser(currentUser);
             setIsAuthenticated(true);
-            navigate('/dashboard')
+            navigate('/dashboard');
         } else if (window.location.pathname !== '/register') {
             navigate('/login');
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate, serverStatus]);
+
+    const verifyServerStatus = async () => {
+        try {
+            const response = await checkServerHealth();
+            if (response.status === 200) {
+                setServerStatus(true);
+            } else {
+                serverStatus(false);
+            }
+        } catch (error) {
+            setServerStatus(false);
+        }
+    };
+
+    useEffect(() => {
+        let intervalId;
+        const timeout = 10000;
+            intervalId = setInterval(() => {
+                verifyServerStatus();
+            }, timeout);
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [serverStatus]);
 
     const handleLogout = () => {
         removeToken();
@@ -36,6 +68,7 @@ const App = () => {
                 <Route path="/register" element={<RegisterForm setIsAuthenticated={setIsAuthenticated}/>}/>
                 {user && <Route path="/dashboard" element={<Dashboard user={user} handleLogout={handleLogout}/>}/>}
                 <Route path="*" element={<LoginForm setIsAuthenticated={setIsAuthenticated}/>}/>
+                <Route path="/no-connection" element={<NoConnectionModal/>}/>
             </Routes>
         </>
     );

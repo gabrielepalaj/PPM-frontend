@@ -11,7 +11,6 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.response.use(response => {
-    // Se la richiesta va a buon fine, semplicemente ritorna la risposta
     return response;
 }, error => {
     if (error.response && error.response.status === 401) {
@@ -61,3 +60,7 @@ export const editWebsite = (website) => {
 export const markChangeAsRead = (changeId) => {
     return apiClient.put(`/changes/${changeId}/mark_as_read`);
 };
+
+export const checkServerHealth = async () => {
+    return apiClient.get('/health', { timeout: 500 });
+}
