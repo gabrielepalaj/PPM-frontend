@@ -11,8 +11,7 @@ const ChangeDetailsModal = ({ website, show, onHide, onMarkAsRead }) => {
 
     return (
         <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>{website.name}</Modal.Title>
+            <Modal.Header>
             </Modal.Header>
             <Modal.Body>
                 <h4>URL</h4>
@@ -20,13 +19,13 @@ const ChangeDetailsModal = ({ website, show, onHide, onMarkAsRead }) => {
                 {website.last_change && (
                     <>
                         <h4>Last Change</h4>
-                        <img src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(website.last_change.screenshot)))}`} alt="Screenshot" style={{ width: '100%' }} />
+                        <img src={`data:image/png;base64,${website.last_change.screenshot}`} alt="Screenshot" style={{ width: '300px' }} />
                         {website.previous_change && (
                             <>
                                 <h4>Previous Change</h4>
-                                <img src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(website.previous_change.screenshot)))}`} alt="Screenshot" style={{ width: '100%' }} />
+                                <img src={`data:image/png;base64,${website.previous_change.screenshot}`} alt="Screenshot" style={{ width: '300px' }} />
                                 <h4>Differences</h4>
-                                <img src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(website.differences.diff_image)))}`} alt="Differences" style={{ width: '100%' }} />
+                                <img src={`data:image/png;base64,${website.differences.diff_image}`} alt="Differences" style={{ width: '300px' }} />
                             </>
                         )}
                     </>

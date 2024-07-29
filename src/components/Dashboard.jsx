@@ -10,9 +10,7 @@ import Navbar from './Navbar';
 
 const Dashboard = ({user, handleLogout}) => {
     const [websites, setWebsites] = useState([]);
-    const [modalShow, setModalShow] = useState(false);
-    const [editModalShow, setEditModalShow] = useState(false);
-    const [changeModalShow, setChangeModalShow] = useState(false);
+    const [visibleModal, setVisibleModal] = useState(null); // 'add', 'edit', 'change', or null
     const [selectedWebsite, setSelectedWebsite] = useState(null);
 
     const getWebsites = async () => {
@@ -25,7 +23,6 @@ const Dashboard = ({user, handleLogout}) => {
             console.error(err);
         }
     };
-
 
     useEffect(() => {
         getWebsites();
@@ -86,7 +83,7 @@ const Dashboard = ({user, handleLogout}) => {
 
     const handleRowClick = (website) => {
         setSelectedWebsite(website);
-        setChangeModalShow(true);
+        setVisibleModal('change');
     };
 
     return (
@@ -98,14 +95,14 @@ const Dashboard = ({user, handleLogout}) => {
                 </div>
                 <div className="table-container">
                     <h2>Dashboard</h2>
-                    <button onClick={() => setModalShow(true)}>Aggiungi Sito Web</button>
-                    <AddWebsiteModal setWebsite={addNewWebsite} show={modalShow} onHide={() => setModalShow(false)}/>
+                    <button onClick={() => setVisibleModal('add')}>Aggiungi Sito Web</button>
+                    <AddWebsiteModal setWebsite={addNewWebsite} show={visibleModal === 'add'} onHide={() => setVisibleModal(null)}/>
                     <div className="website-list-container">
                         <WebsiteList
                             websites={websites}
                             onEdit={(website) => {
                                 setSelectedWebsite(website);
-                                setEditModalShow(true);
+                                setVisibleModal('edit');
                             }}
                             onRowClick={handleRowClick}
                             deleteButton={handleDeleteWebsite}
@@ -113,19 +110,19 @@ const Dashboard = ({user, handleLogout}) => {
                     </div>
                 </div>
             </div>
-            {selectedWebsite && (
+            {selectedWebsite && visibleModal === 'edit' && (
                 <EditWebsiteModal
                     website={selectedWebsite}
-                    show={editModalShow}
-                    onHide={() => setEditModalShow(false)}
+                    show={visibleModal === 'edit'}
+                    onHide={() => setVisibleModal(null)}
                     onSave={handleEditWebsite}
                 />
             )}
-            {selectedWebsite && (
+            {selectedWebsite && visibleModal === 'change' && (
                 <ChangeDetailsModal
                     website={selectedWebsite}
-                    show={changeModalShow}
-                    onHide={() => setChangeModalShow(false)}
+                    show={visibleModal === 'change'}
+                    onHide={() => setVisibleModal(null)}
                     onMarkAsRead={handleMarkChangeAsRead}
                 />
             )}

@@ -22,8 +22,8 @@ const WebsiteList = ({ websites, onEdit, deleteButton, onRowClick }) => {
                         <td>{website.name}</td>
                         <td>{website.url}</td>
                         <td>
-                            {website.last_change ? (
-                                <img src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(website.last_change.screenshot)))}`} alt="Screenshot" style={{ maxWidth: '100px' }} />
+                            {website.last_change && website.last_change.screenshot ? (
+                                <img src={`data:image/png;base64,${website.last_change.screenshot}`} alt="Screenshot" style={{ maxWidth: '75px' }} />
                             ) : (
                                 'No changes detected'
                             )}
