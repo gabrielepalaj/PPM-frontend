@@ -21,6 +21,9 @@ const Dashboard = ({user, handleLogout}) => {
             }
         } catch (err) {
             console.error(err);
+            if (err.response.status === 401) {
+                handleLogout();
+            }
         }
     };
 

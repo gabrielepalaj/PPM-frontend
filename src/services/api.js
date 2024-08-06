@@ -58,7 +58,7 @@ export const editWebsite = (website) => {
 };
 
 export const markChangeAsRead = (changeId) => {
-    return apiClient.put(`/changes/${changeId}/mark_as_read`);
+    return apiClient.post(`/changes/${changeId}/read`);
 };
 
 export const checkServerHealth = async () => {
