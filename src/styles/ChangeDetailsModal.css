@@ -1,0 +1,23 @@
+.changes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.change-item {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+}
+
+.change-screenshot {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .change-item {
+        flex-basis: 48%;
+    }
+}
