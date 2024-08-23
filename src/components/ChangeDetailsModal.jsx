@@ -12,14 +12,12 @@ const ChangeDetailsModal = ({ website, show, onHide, onMarkAsRead }) => {
 
     return (
         <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Change Details for {website.name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>URL</h4>
-                <p>{website.url}</p>
+                <h4>URL: {website.url} </h4>
                 <div className="changes-container">
                     {website.last_change && (
                         <div className="change-item">
@@ -30,12 +28,6 @@ const ChangeDetailsModal = ({ website, show, onHide, onMarkAsRead }) => {
                                 alt="Last Change Screenshot"
                                 className="change-screenshot"
                             />
-                            {website.last_change.change_summary && (
-                                <>
-                                    <h5>Change Summary</h5>
-                                    <p>{website.last_change.change_summary}</p>
-                                </>
-                            )}
                         </div>
                     )}
                     {website.previous_change && (
